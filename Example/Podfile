@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'AListViewController_Example' do
+  pod 'AListViewController', :path => '../'
+
+  target 'AListViewController_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
