@@ -2,6 +2,11 @@ use_frameworks!
 
 target 'AListViewController_Example' do
   pod 'AListViewController', :path => '../'
+  pod 'SwiftEmoji', '~> 1.1'
+  pod 'PureLayout'
+  pod 'Alamofire'
+  pod 'AlamofireObjectMapper'
+  pod 'SDWebImage', '~> 4.0'
 
   target 'AListViewController_Tests' do
     inherit! :search_paths

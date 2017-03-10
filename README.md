@@ -22,7 +22,7 @@ pod "AListViewController"
 
 ## Author
 
-Arnoymous, ineox@me.com
+Arnaud Dorgans, arnaud.dorgans@gmail.com
 
 ## License
 

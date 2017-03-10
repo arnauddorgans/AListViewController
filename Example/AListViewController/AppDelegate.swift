@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  AListViewController
 //
-//  Created by Arnoymous on 03/10/2017.
-//  Copyright (c) 2017 Arnoymous. All rights reserved.
+//  Created by Arnaud Dorgans on 03/10/2017.
+//  Copyright (c) 2017 Arnaud Dorgans. All rights reserved.
 //
 
 import UIKit

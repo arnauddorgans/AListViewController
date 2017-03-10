@@ -1,0 +1,6 @@
+framework module AListViewController {
+  umbrella header "AListViewController-umbrella.h"
+
+  export *
+  module * { export * }
+}

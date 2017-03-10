@@ -1,0 +1,27 @@
+{
+  "name": "AListViewController",
+  "version": "0.1.0",
+  "summary": "A short description of AListViewController.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Arnoymous/AListViewController",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Arnaud Dorgans": "arnaud.dorgans@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Arnoymous/AListViewController.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "dependencies": {
+    "ESPullToRefresh": [
+      "~> 2.6"
+    ]
+  },
+  "source_files": "AListViewController/Classes/**/*"
+}

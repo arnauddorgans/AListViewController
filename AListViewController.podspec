@@ -24,12 +24,12 @@ TODO: Add long description of the pod here.
   s.homepage         = 'https://github.com/Arnoymous/AListViewController'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Arnoymous' => 'ineox@me.com' }
+  s.author           = { 'Arnaud Dorgans' => 'arnaud.dorgans@gmail.com' }
   s.source           = { :git => 'https://github.com/Arnoymous/AListViewController.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
-
+  s.dependency 'ESPullToRefresh', '~> 2.6'
   s.source_files = 'AListViewController/Classes/**/*'
   
   # s.resource_bundles = {
@@ -38,5 +38,4 @@ TODO: Add long description of the pod here.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
