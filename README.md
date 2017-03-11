@@ -10,10 +10,6 @@
 - manage sections and rows easly and animatly
 - pullToRefresh and loadMore
 
-## Requirements
-
-Swift 3.0
-
 ## Installation
 
 AListViewController is available through [CocoaPods](http://cocoapods.org). To install
@@ -23,10 +19,13 @@ it, simply add the following line to your Podfile:
 pod "AListViewController"
 ```
 
+## Requirements
+
+Swift 3.0
+
 ## How it work ?
 
 AListViewController have two subclasses :
-
 - `ATableViewController`
 - `ACollectionViewController`
 
@@ -98,7 +97,7 @@ class SimpleTableViewController: ATableViewController {
 
 In this exemple if you call `refreshData(reload: true)` the content of your `ListView` don't change.
 
-But if you call `refreshData(reload: true)` :
+But if you call `refreshData(reload: false)` :
 - `self.section0` is add to section at index 0
 - `self.section1` is add to section at index 1
 
@@ -108,6 +107,11 @@ Now,
 
 ## Additional Usage
 ```swift
+
+public var fetchSourceObjectsOnViewDidLoad: Bool
+
+public var tableViewRowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation)
+
 open func addPullToRefresh(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol)
 open func addLoadMore(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol)
 
@@ -137,6 +141,8 @@ public func object(atIndexPath indexPath: IndexPath) -> Any
 ## Author
 
 Arnaud Dorgans, arnaud.dorgans@gmail.com
+
+Inspired by mishimay, https://github.com/istyle-inc/LoadMoreTableViewController
 
 ## License
 
