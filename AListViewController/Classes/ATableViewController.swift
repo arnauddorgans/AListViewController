@@ -32,8 +32,8 @@ open class ATableViewController: AListViewController, UITableViewDelegate, UITab
     public var didSelectCell: ((IndexPath,Any,UITableViewCell?) -> Void)?
     
     public var tableViewRowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) {
-        get {return _tableViewRowAnimation}
-        set {_tableViewRowAnimation = newValue}
+        get {return rowAnimation}
+        set {rowAnimation = newValue}
     }
     
     open func customizeTableView(_ tableView: UITableView) { }

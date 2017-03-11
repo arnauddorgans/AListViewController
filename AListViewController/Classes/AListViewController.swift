@@ -37,6 +37,8 @@ open class AListViewController: UIViewController {
     public var pullToRefreshEnabled: Bool = false
     public var loadMoreEnabled: Bool = false
     public var fetchSourceObjectsOnViewDidLoad: Bool = true
+    public var rowAnimationEnabled: Bool = true
+
     open private (set) var isLoading: Bool = false
     private var isLoadingMore: Bool = false
     
@@ -51,7 +53,7 @@ open class AListViewController: UIViewController {
         return scrollView as? UICollectionView
     }
     
-    internal var _tableViewRowAnimation: (delete:UITableViewRowAnimation,
+    internal var rowAnimation: (delete:UITableViewRowAnimation,
         insert:UITableViewRowAnimation,
         reload:UITableViewRowAnimation) = (.fade,.top,.fade)
     
@@ -132,8 +134,10 @@ open class AListViewController: UIViewController {
             self.sourceObjects.insert(objects[index], at: currentCount + index)
         }
         let sections = IndexSet(integersIn: currentCount..<currentCount+objects.count)
-        self._tableView?.insertSections(sections, with: self._tableViewRowAnimation.insert)
-        self._collectionView?.insertSections(sections)
+        self.performAnimation(){
+            self._tableView?.insertSections(sections, with: self.rowAnimation.insert)
+            self._collectionView?.insertSections(sections)
+        }
     }
     
     public func insertRow(withObject object:Any,at indexPath:IndexPath? = nil) {
@@ -149,8 +153,10 @@ open class AListViewController: UIViewController {
             let index = indexPaths[index]
             self.sourceObjects[index.section].insert(object, at: index.row)
         }
-        self._tableView?.insertRows(at: indexPaths, with: self._tableViewRowAnimation.insert)
-        self._collectionView?.insertItems(at: indexPaths)
+        self.performAnimation(){
+            self._tableView?.insertRows(at: indexPaths, with: self.rowAnimation.insert)
+            self._collectionView?.insertItems(at: indexPaths)
+        }
     }
     
     public func deleteRow(withIndex indexs: IndexPath...) {
@@ -167,8 +173,10 @@ open class AListViewController: UIViewController {
         for index in indexs {
             self.sourceObjects[index.section].remove(at: index.row)
         }
-        self._tableView?.deleteRows(at: indexs, with: self._tableViewRowAnimation.delete)
-        self._collectionView?.deleteItems(at: indexs)
+        self.performAnimation(){
+            self._tableView?.deleteRows(at: indexs, with: self.rowAnimation.delete)
+            self._collectionView?.deleteItems(at: indexs)
+        }
     }
     
     public func deleteSection(withIndex indexs:Int...) {
@@ -180,8 +188,10 @@ open class AListViewController: UIViewController {
         for index in indexs {
             self.sourceObjects.remove(at: index)
         }
-        self._tableView?.deleteSections(IndexSet(indexs), with: self._tableViewRowAnimation.delete)
-        self._collectionView?.deleteSections(IndexSet(indexs))
+        self.performAnimation(){
+            self._tableView?.deleteSections(IndexSet(indexs), with: self.rowAnimation.delete)
+            self._collectionView?.deleteSections(IndexSet(indexs))
+        }
     }
     
     public func reloadSection(withIndex indexs:Int...) {
@@ -191,8 +201,10 @@ open class AListViewController: UIViewController {
     public func reloadSections(withIndexs indexs:[Int]? = nil) {
         let indexs = indexs ?? Array(0..<self.sourceObjects.count)
         let sections = IndexSet(indexs)
-        self._tableView?.reloadSections(sections, with: self._tableViewRowAnimation.reload)
-        self._collectionView?.reloadSections(sections)
+        self.performAnimation(){
+            self._tableView?.reloadSections(sections, with: self.rowAnimation.reload)
+            self._collectionView?.reloadSections(sections)
+        }
     }
     
     public func reloadRow(withIndex indexs:IndexPath...) {
@@ -201,8 +213,10 @@ open class AListViewController: UIViewController {
     
     public func reloadRows(withIndexs indexs:[IndexPath]? = nil) {
         if let indexs = indexs {
-            self._tableView?.reloadRows(at: indexs, with: self._tableViewRowAnimation.reload)
-            self._collectionView?.reloadItems(at: indexs)
+            self.performAnimation() {
+                self._tableView?.reloadRows(at: indexs, with: self.rowAnimation.reload)
+                self._collectionView?.reloadItems(at: indexs)
+            }
         } else {
             self.reloadSections()
         }
@@ -223,7 +237,7 @@ open class AListViewController: UIViewController {
             fetchSourceObjects({ [weak self] objects,noMoreData in
                 if let _self = self {
                     func update() {
-                        _self._tableView?.beginUpdates()
+                            _self._tableView?.beginUpdates()
                             let currentCount = _self.sourceObjects.count
                             var ignoredSections = [Int]()
                             if objects.count > currentCount {
@@ -270,7 +284,7 @@ open class AListViewController: UIViewController {
                                 }
                                 _self.reloadRows(withIndexs: reloadRows)
                             }
-                        _self._tableView?.endUpdates()
+                            _self._tableView?.endUpdates()
                     }
                     
                     func end() {
@@ -294,12 +308,11 @@ open class AListViewController: UIViewController {
                     }
                     DispatchQueue.main.async {
                         if _self.isLoadingMore {
-                            update()
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: end)
                         } else {
                             end()
-                            update()
                         }
+                        _self.performAnimation(update)
                         _self.isLoadingMore = false
                     }
                 }
@@ -323,10 +336,20 @@ open class AListViewController: UIViewController {
         return sourceObjects[section].count
     }
     
+    private func performAnimation(_ block:()->Void) {
+        if self.rowAnimationEnabled {
+            block()
+        } else {
+            UIView.performWithoutAnimation(block)
+        }
+    }
+    
     deinit {
         self.configureCellIdentifier = nil
         self.fetchSourceObjects = nil
         self._tableView?.dataSource = nil
         self._tableView?.delegate = nil
+        self._collectionView?.dataSource = nil
+        self._collectionView?.delegate = nil
     }
 }
