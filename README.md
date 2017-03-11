@@ -9,7 +9,7 @@
 <img src="Dribble-demo.gif" width="250" height="447">
 
 ## Features
-- configure `TableView` or `CollectionView` with same methods
+- configure `TableView` or `CollectionView` a SINGLE method
 - manage sections and rows easly and animatly
 - pullToRefresh and loadMore
 
@@ -40,6 +40,30 @@ The only difference between thoses subclasses is the `ListView`:
 
 ### Usage
 
+Call `self.configure()` before `super.viewDidLoad()` with arguments:
+
+`cellIdentifier: @escaping (IndexPath, Any) -> String`
+- Configure cell identifier at IndexPath
+
+`cellUpdate: @escaping (IndexPath,Any,ListViewCell) -> Void`
+- Update cell at IndexPath
+
+`ATableViewController` : `cellSize: ((IndexPath, Any) -> CGSize)?`
+`ACollectionViewController` : `cellHeight: ((IndexPath, Any) -> CGFloat)?`
+- Set cell size for IndexPath
+
+`ACollectionViewController` : `minimumSpacing: ((Int) -> CGSize)?`
+- Set minimum spacing for Section (width: interItem, height: line)
+
+`sourceObjects: @escaping ((@escaping ([[Any]], Bool) -> Void) -> Void)`
+- Fetch data in this closure.
+- Call completion closure to return these information.
+    - The fetched new objects (sourceObjects).
+    - If the next loading exists (hasNext).
+    
+`didSelectCell: ((IndexPath,Any) -> Void)?`
+- Handle press on cell
+
 `public func refreshData(reload: Bool, immediately: Bool)`
 - reload: true - replace `ListView` content with `fetchSourceObjects` 
       - immediately: true
@@ -47,25 +71,6 @@ The only difference between thoses subclasses is the `ListView`:
       - immediately: false
           - Refreshes the tableView after fetching the data.
 - reload: false - append `fetchSourceObjects` to `ListView` content  
-
-`public var fetchSourceObjects: ((@escaping([[Any]],Bool) -> Void) -> Void)`
-- Fetch data in this closure.
-- Call completion closure to return these information.
-    - The fetched new objects (sourceObjects).
-    - If the next loading exists (hasNext).
-    
-`public var configureCellIdentifier: ((IndexPath,Any)->String)`
-- Configure cell identifier at IndexPath
-
-`public var configureCell: ((IndexPath,Any,UITableViewCell) -> UITableViewCell)`
-
-`public var configureCell: ((IndexPath,Any,UICollectionViewCell) -> UICollectionViewCell)!`
-- Update cell at IndexPath
-
-`public var didSelectCell: ((IndexPath,Any,UITableViewCell?) -> Void)?`
-
-`public var didSelectCell: ((IndexPath,Any,UICollectionViewCell?) -> Void)?`
-- Handle press on cell
 
 ## Example
 
@@ -78,19 +83,24 @@ class ExampleTableViewController: ATableViewController {
     let section1 = ["Cell 1 Section 2","Cell 2 Section 2"]
 
     override func viewDidLoad() {
-        self.configureCellIdentifier = { _, object in
+        
+        self.configure(cellIdentifier: { _ -> String in
+            
             return "cell"
-        }
-        self.configureCell = { _,object,cell in
-           cell.textLabel?.text = object as? String
-           return cell
-        }
-        self.fetchSourceObjects = { completion in
-           completion([self.section0,self.section1], true)
-        }
-        self.didSelectCell = { _,object,_ in
+            
+        }, cellUpdate: { (_, object, cell) in
+            
+            cell.textLabel?.text = object as? String
+            
+        }, sourceObjects: { (completion) in
+            
+            completion([self.section0,self.section1], true)
+            
+        }, didSelectCell: { (_, object) in
+            
             print("select: \(object as! String)")
-        }
+            
+        })
         super.viewDidLoad()
     }
 
@@ -120,10 +130,10 @@ public var loadMoreEnabled: Bool
 public var fetchSourceObjectsOnViewDidLoad: Bool
 public var rowAnimationEnabled: Bool
 
-public var tableViewRowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation)
+public var tableViewRowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) //ATableViewController
 
-open func addPullToRefresh(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol)
-open func addLoadMore(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol)
+open func addPullToRefresh(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) //AListViewController/PullToRefresh
+open func addLoadMore(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) //AListViewController/PullToRefresh
 
 public func registerCellClass(_ `class`:AnyClass,withIdentifier identifier: String)
 public func registerCellNib(_ nib: UINib,withIdentifier identifier: String)
