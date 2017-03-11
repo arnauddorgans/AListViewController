@@ -30,9 +30,9 @@ open class ATableViewController: AListViewController, UITableViewDelegate, UITab
     @IBOutlet open var tableView: UITableView!
     private var configureCell: ((IndexPath,Any,UITableViewCell) -> Void)!
     
-    public var tableViewRowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) {
-        get {return rowAnimation}
-        set {rowAnimation = newValue}
+    public var rowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) {
+        get {return _rowAnimation}
+        set {_rowAnimation = newValue}
     }
 
     public func configure(cellIdentifier: @escaping (IndexPath, Any) -> String,

@@ -60,7 +60,7 @@ open class AListViewController: UIViewController {
         return scrollView as? UICollectionView
     }
     
-    internal var rowAnimation: (delete:UITableViewRowAnimation,
+    internal var _rowAnimation: (delete:UITableViewRowAnimation,
         insert:UITableViewRowAnimation,
         reload:UITableViewRowAnimation) = (.fade,.top,.fade)
     
@@ -156,7 +156,7 @@ open class AListViewController: UIViewController {
         }
         let sections = IndexSet(integersIn: currentCount..<currentCount+objects.count)
         self.performAnimation(){
-            self._tableView?.insertSections(sections, with: self.rowAnimation.insert)
+            self._tableView?.insertSections(sections, with: self._rowAnimation.insert)
             self._collectionView?.insertSections(sections)
         }
     }
@@ -175,7 +175,7 @@ open class AListViewController: UIViewController {
             self.sourceObjects[index.section].insert(object, at: index.row)
         }
         self.performAnimation(){
-            self._tableView?.insertRows(at: indexPaths, with: self.rowAnimation.insert)
+            self._tableView?.insertRows(at: indexPaths, with: self._rowAnimation.insert)
             self._collectionView?.insertItems(at: indexPaths)
         }
     }
@@ -195,7 +195,7 @@ open class AListViewController: UIViewController {
             self.sourceObjects[index.section].remove(at: index.row)
         }
         self.performAnimation(){
-            self._tableView?.deleteRows(at: indexs, with: self.rowAnimation.delete)
+            self._tableView?.deleteRows(at: indexs, with: self._rowAnimation.delete)
             self._collectionView?.deleteItems(at: indexs)
         }
     }
@@ -210,7 +210,7 @@ open class AListViewController: UIViewController {
             self.sourceObjects.remove(at: index)
         }
         self.performAnimation(){
-            self._tableView?.deleteSections(IndexSet(indexs), with: self.rowAnimation.delete)
+            self._tableView?.deleteSections(IndexSet(indexs), with: self._rowAnimation.delete)
             self._collectionView?.deleteSections(IndexSet(indexs))
         }
     }
@@ -223,7 +223,7 @@ open class AListViewController: UIViewController {
         let indexs = indexs ?? Array(0..<self.sourceObjects.count)
         let sections = IndexSet(indexs)
         self.performAnimation(){
-            self._tableView?.reloadSections(sections, with: self.rowAnimation.reload)
+            self._tableView?.reloadSections(sections, with: self._rowAnimation.reload)
             self._collectionView?.reloadSections(sections)
         }
     }
@@ -235,7 +235,7 @@ open class AListViewController: UIViewController {
     public func reloadRows(withIndexs indexs:[IndexPath]? = nil) {
         if let indexs = indexs {
             self.performAnimation() {
-                self._tableView?.reloadRows(at: indexs, with: self.rowAnimation.reload)
+                self._tableView?.reloadRows(at: indexs, with: self._rowAnimation.reload)
                 self._collectionView?.reloadItems(at: indexs)
             }
         } else {

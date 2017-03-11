@@ -40,7 +40,7 @@ class TableViewController: ATableViewController {
     }
     
     override func viewDidLoad() {
-        self.tableViewRowAnimation = (.right,.top,.automatic)
+        self.rowAnimation = (.right,.top,.automatic)
         self.pullToRefreshEnabled = true
         
         self.configure(cellIdentifier: { _, object -> String in
