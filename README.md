@@ -108,7 +108,11 @@ Now,
 ## Additional Usage
 ```swift
 
+public var pullToRefreshEnabled: Bool
+public var loadMoreEnabled: Bool
+
 public var fetchSourceObjectsOnViewDidLoad: Bool
+public var rowAnimationEnabled: Bool
 
 public var tableViewRowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation)
 
