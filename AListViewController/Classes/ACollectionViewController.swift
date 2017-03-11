@@ -50,9 +50,11 @@ open class ACollectionViewController: AListViewController, UICollectionViewDeleg
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
+        #if ALISTVIEWCONTROLLER_PULL
         if (pullToRefreshEnabled || loadMoreEnabled) && !collectionView.alwaysBounceVertical {
             collectionView.alwaysBounceVertical = true
         }
+        #endif
     }
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {

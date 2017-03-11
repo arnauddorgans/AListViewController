@@ -26,16 +26,23 @@ TODO: Add long description of the pod here.
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Arnaud Dorgans' => 'arnaud.dorgans@gmail.com' }
   s.source           = { :git => 'https://github.com/Arnoymous/AListViewController.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/arnauddorgans'
 
-  s.ios.deployment_target = '8.0'
-  s.dependency 'ESPullToRefresh', '~> 2.6'
-  s.source_files = 'AListViewController/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'AListViewController' => ['AListViewController/Assets/*.png']
-  # }
+  s.requires_arc	= true
+  s.default_subspec = 'Lite'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.subspec 'Lite' do |lite|
+    lite.platforms = { :ios => "8.0", :tvos => "9.0" }
+    lite.source_files = 'AListViewController/Classes/**/*'
+  end
+
+  s.subspec 'PullToRefresh' do |pull|
+    pull.platforms = { :ios => "8.0" }
+    pull.dependency	'ESPullToRefresh', '~> 2.6'
+    pull.xcconfig	=
+    { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DALISTVIEWCONTROLLER_PULL' }
+  end
+
+
 end
+

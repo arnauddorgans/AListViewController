@@ -24,7 +24,9 @@
 //
 
 import UIKit
-import ESPullToRefresh
+#if ALISTVIEWCONTROLLER_PULL
+    import ESPullToRefresh
+#endif
 
 typealias ListView = UIScrollView
 
@@ -34,15 +36,17 @@ open class AListViewController: UIViewController {
     public var configureCellIdentifier: ((IndexPath,Any)->String)!
     public var fetchSourceObjects: ((@escaping([[Any]],Bool) -> Void) -> Void)!
     
-    public var pullToRefreshEnabled: Bool = false
-    public var loadMoreEnabled: Bool = false
     public var fetchSourceObjectsOnViewDidLoad: Bool = true
     public var rowAnimationEnabled: Bool = true
 
     open private (set) var isLoading: Bool = false
     private var isLoadingMore: Bool = false
     
-    private var initRefresh: Bool = false
+    #if ALISTVIEWCONTROLLER_PULL
+        public var pullToRefreshEnabled: Bool = false
+        public var loadMoreEnabled: Bool = false
+        private var initRefresh: Bool = false
+    #endif
     
     open private (set) var sourceObjects = [[Any]]()
     
@@ -65,6 +69,7 @@ open class AListViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    #if ALISTVIEWCONTROLLER_PULL
     open func addPullToRefresh(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) {
         self.scrollView.es_addPullToRefresh(animator: animator) { [weak self] in
             self?.refreshData()
@@ -79,6 +84,7 @@ open class AListViewController: UIViewController {
             }
         }
     }
+    #endif
     
     internal func customizeScrollView(_ scrollView: UIScrollView) { }
     
@@ -103,6 +109,7 @@ open class AListViewController: UIViewController {
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        #if ALISTVIEWCONTROLLER_PULL
         if !initRefresh {
             initRefresh = true
             if pullToRefreshEnabled {
@@ -112,6 +119,7 @@ open class AListViewController: UIViewController {
                 self.addLoadMore(ESRefreshFooterAnimator())
             }
         }
+        #endif
     }
     
     public func registerCellClass(_ `class`:AnyClass,withIdentifier identifier: String) {
@@ -224,9 +232,11 @@ open class AListViewController: UIViewController {
     
     open func refreshData(reload: Bool = true, immediately: Bool = false) {
         if !isLoading {
+            #if ALISTVIEWCONTROLLER_PULL
             if self.loadMoreEnabled && reload {
                 self.scrollView.es_resetNoMoreData()
             }
+            #endif
             func reset() {
                 self.deleteSections(withIndexs: Array(0..<sourceObjects.count))
             }
@@ -288,6 +298,7 @@ open class AListViewController: UIViewController {
                     }
                     
                     func end() {
+                        #if ALISTVIEWCONTROLLER_PULL
                         if _self.pullToRefreshEnabled {
                             _self.scrollView.es_stopPullToRefresh()
                         }
@@ -304,6 +315,7 @@ open class AListViewController: UIViewController {
                                 })
                             }
                         }
+                        #endif
                         _self.isLoading = false
                     }
                     DispatchQueue.main.async {
