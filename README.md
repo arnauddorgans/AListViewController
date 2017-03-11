@@ -5,6 +5,9 @@
 [![License](https://img.shields.io/cocoapods/l/AListViewController.svg?style=flat)](http://cocoapods.org/pods/AListViewController)
 [![Platform](https://img.shields.io/cocoapods/p/AListViewController.svg?style=flat)](http://cocoapods.org/pods/AListViewController)
 
+<img src="Chat-demo.gif" width="320" height="573">
+<img src="Dribble-demo.gif" width="320" height="573">
+
 ## Features
 - configure `TableView` or `CollectionView` with same methods
 - manage sections and rows easly and animatly
