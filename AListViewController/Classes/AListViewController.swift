@@ -2,7 +2,7 @@
 //  AListViewController.swift
 //
 //  Created by Arnaud Dorgans on 03/08/2017.
-//  Copyright © 2017 ATableViewController (https://github.com/Arnoymous/ATableViewController)
+//  Copyright © 2017 AListViewController (https://github.com/Arnoymous/AListViewController)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -33,11 +33,14 @@ typealias ListView = UIScrollView
 open class AListViewController: UIViewController {
     
     internal var scrollView: ListView!
-    public var configureCellIdentifier: ((IndexPath,Any)->String)!
-    public var fetchSourceObjects: ((@escaping([[Any]],Bool) -> Void) -> Void)!
+    internal var configureCellIdentifier: ((IndexPath,Any)->String)!
+    internal var fetchSourceObjects: ((@escaping([[Any]],Bool) -> Void) -> Void)!
+    internal var didSelectCell: ((IndexPath,Any) -> Void)?
     
     public var fetchSourceObjectsOnViewDidLoad: Bool = true
     public var rowAnimationEnabled: Bool = true
+    
+    internal var configureCellSize: ((IndexPath,Any)->CGSize)?
 
     open private (set) var isLoading: Bool = false
     private var isLoadingMore: Bool = false
@@ -120,6 +123,16 @@ open class AListViewController: UIViewController {
             }
         }
         #endif
+    }
+    
+    internal func configure(cellIdentifier:@escaping (IndexPath,Any)->String,
+                   cellSize: ((IndexPath,Any)->CGSize)? = nil,
+                   sourceObjects: @escaping ((@escaping([[Any]],Bool) -> Void) -> Void),
+                   didSelectCell:((IndexPath,Any) -> Void)? = nil) {
+        self.configureCellIdentifier = cellIdentifier
+        self.configureCellSize = cellSize
+        self.fetchSourceObjects = sourceObjects
+        self.didSelectCell = didSelectCell
     }
     
     public func registerCellClass(_ `class`:AnyClass,withIdentifier identifier: String) {
@@ -358,7 +371,9 @@ open class AListViewController: UIViewController {
     
     deinit {
         self.configureCellIdentifier = nil
+        self.configureCellSize = nil
         self.fetchSourceObjects = nil
+        self.didSelectCell = nil
         self._tableView?.dataSource = nil
         self._tableView?.delegate = nil
         self._collectionView?.dataSource = nil

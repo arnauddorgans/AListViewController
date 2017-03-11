@@ -42,22 +42,27 @@ class TableViewController: ATableViewController {
     override func viewDidLoad() {
         self.tableViewRowAnimation = (.right,.top,.automatic)
         self.pullToRefreshEnabled = true
-        self.configureCellIdentifier = { _, object in
+        
+        self.configure(cellIdentifier: { _, object -> String in
+            
             let message = object as! Message
             let identifier = message.isOwn ? CellIdentifier.right.rawValue : CellIdentifier.left.rawValue
             return message.isEmoji ? CellIdentifier.emoji.rawValue : identifier
-        }
-        self.configureCell = { _,object,cell in
+            
+        }, cellUpdate: { _, object, cell in
+            
             let cell = cell as! TableViewCell
             cell.update(withMessage: object as! Message)
-            return cell
-        }
-        self.fetchSourceObjects = { completion in
+            
+        }, sourceObjects: { (completion) in
+            
             completion([Message.demoChat], true)
-        }
-        self.didSelectCell = { indexPath,_,_ in
-            self.deleteRow(withIndex: indexPath)
-        }
+            
+        }, didSelectCell: { [weak self] indexPath, _ in
+            
+            self?.deleteRow(withIndex: indexPath)
+            
+        })
         super.viewDidLoad()
     }
 }

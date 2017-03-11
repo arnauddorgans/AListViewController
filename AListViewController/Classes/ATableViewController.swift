@@ -2,7 +2,7 @@
 //  ATableViewController.swift
 //
 //  Created by Arnaud Dorgans on 03/08/2017.
-//  Copyright © 2017 ATableViewController (https://github.com/Arnoymous/ATableViewController)
+//  Copyright © 2017 AListViewController (https://github.com/Arnoymous/AListViewController)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,12 +28,26 @@ import UIKit
 open class ATableViewController: AListViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet open var tableView: UITableView!
-    public var configureCell: ((IndexPath,Any,UITableViewCell) -> UITableViewCell)!
-    public var didSelectCell: ((IndexPath,Any,UITableViewCell?) -> Void)?
+    private var configureCell: ((IndexPath,Any,UITableViewCell) -> Void)!
     
     public var tableViewRowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) {
         get {return rowAnimation}
         set {rowAnimation = newValue}
+    }
+
+    public func configure(cellIdentifier: @escaping (IndexPath, Any) -> String,
+                    cellUpdate: @escaping (IndexPath,Any,UITableViewCell) -> Void,
+                    cellHeight: ((IndexPath, Any) -> CGFloat)? = nil,
+                    sourceObjects: @escaping ((@escaping ([[Any]], Bool) -> Void) -> Void),
+                    didSelectCell: ((IndexPath, Any) -> Void)? = nil) {
+        self.configureCell = cellUpdate
+        var cellSize: ((IndexPath, Any) -> CGSize)?
+        if let cellHeight = cellHeight {
+            cellSize = { indexPath,object in
+                return CGSize(width:0,height:cellHeight(indexPath,object))
+            }
+        }
+        super.configure(cellIdentifier: cellIdentifier, cellSize: cellSize, sourceObjects: sourceObjects, didSelectCell: didSelectCell)
     }
     
     open func customizeTableView(_ tableView: UITableView) { }
@@ -65,17 +79,21 @@ open class ATableViewController: AListViewController, UITableViewDelegate, UITab
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        didSelectCell?(indexPath,object(atIndexPath: indexPath),tableView.cellForRow(at: indexPath))
+        didSelectCell?(indexPath,object(atIndexPath: indexPath))
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier(atIndexPath: indexPath), for: indexPath)
-        return configureCell(indexPath,object(atIndexPath: indexPath),cell)
+        configureCell(indexPath,object(atIndexPath: indexPath),cell)
+        return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.configureCellSize?(indexPath,object(atIndexPath: indexPath)).height ?? self.tableView.rowHeight
     }
     
     deinit {
         self.tableView = nil
         self.configureCell = nil
-        self.didSelectCell = nil
     }
 }

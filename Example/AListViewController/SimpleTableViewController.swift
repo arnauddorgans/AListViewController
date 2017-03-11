@@ -24,21 +24,28 @@ class SimpleTableViewController: ATableViewController {
     
     override func viewDidLoad() {
         self.rowAnimationEnabled = false
-        self.configureCellIdentifier = { _, object in
+        
+        self.configure(cellIdentifier: { _ -> String in
+            
             return CellIdentifier.default.rawValue
-        }
-        self.configureCell = { _,object,cell in
+            
+        }, cellUpdate: { (_, object, cell) in
+            
             cell.textLabel?.text = (object as? (String,String))?.0
             cell.selectionStyle = .none
-            return cell
-        }
-        self.fetchSourceObjects = { completion in
+            
+        }, sourceObjects: { (completion) in
+            
             completion([self.menu], true)
-        }
-        self.didSelectCell = { _,object,_ in
-            let controller = self.storyboard!.instantiateViewController(withIdentifier: (object as! (String,String)).1)
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
+            
+        }, didSelectCell: { [weak self] (_, object) in
+            
+            if let _self = self {
+                let controller = _self.storyboard!.instantiateViewController(withIdentifier: (object as! (String,String)).1)
+                _self.navigationController?.pushViewController(controller, animated: true)
+            }
+            
+        })
         super.viewDidLoad()
     }
     
