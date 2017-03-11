@@ -17,6 +17,7 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod "AListViewController"
+pod "AListViewController/PullToRefresh" #pullToRefresh feature
 ```
 
 ## Requirements
