@@ -5,8 +5,8 @@
 [![License](https://img.shields.io/cocoapods/l/AListViewController.svg?style=flat)](http://cocoapods.org/pods/AListViewController)
 [![Platform](https://img.shields.io/cocoapods/p/AListViewController.svg?style=flat)](http://cocoapods.org/pods/AListViewController)
 
-<img src="Chat-demo.gif" width="320" height="573">
-<img src="Dribble-demo.gif" width="320" height="573">
+<img src="Chat-demo.gif" width="250" height="447">
+<img src="Dribble-demo.gif" width="250" height="447">
 
 ## Features
 - configure `TableView` or `CollectionView` with same methods
@@ -15,8 +15,9 @@
 
 ## Installation
 
-AListViewController is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+AListViewController is available through [CocoaPods](http://cocoapods.org). 
+
+To install it, simply add the following line to your Podfile:
 
 ```ruby
 pod "AListViewController"
