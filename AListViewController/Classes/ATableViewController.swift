@@ -31,7 +31,7 @@ open class ATableViewController: AListViewController, UITableViewDelegate, UITab
     public var configureCell: ((IndexPath,Any,UITableViewCell) -> UITableViewCell)!
     public var didSelectCell: ((IndexPath,Any,UITableViewCell?) -> Void)?
     
-    open var tableViewRowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) {
+    public var tableViewRowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) {
         get {return _tableViewRowAnimation}
         set {_tableViewRowAnimation = newValue}
     }

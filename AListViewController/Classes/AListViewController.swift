@@ -36,7 +36,7 @@ open class AListViewController: UIViewController {
     
     public var pullToRefreshEnabled: Bool = false
     public var loadMoreEnabled: Bool = false
-    public var fetchSourceObjectsAtViewStart: Bool = true
+    public var fetchSourceObjectsOnViewDidLoad: Bool = true
     open private (set) var isLoading: Bool = false
     private var isLoadingMore: Bool = false
     
@@ -94,7 +94,7 @@ open class AListViewController: UIViewController {
         }
         self.customizeScrollView(self.scrollView)
         
-        if fetchSourceObjectsAtViewStart {
+        if fetchSourceObjectsOnViewDidLoad {
             self.refreshData(reload: true, immediately: true)
         }
     }

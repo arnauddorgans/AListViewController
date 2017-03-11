@@ -69,7 +69,7 @@ class CollectionViewController: ACollectionViewController {
         let object = self.object(atIndexPath: indexPath) as! DribbbleShot
         let rowByLine = CGFloat(self.rowByLine)
         let width = floor((self.view.frame.width - margin * (rowByLine + 1)) / rowByLine)
-        let height = floor(width * object.ratio)
+        let height = floor(width * object.heightRatio)
         let size = CGSize(width: width, height: height)
         return size
     }

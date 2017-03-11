@@ -22,7 +22,7 @@ class DribbbleShot: Mappable {
     var description: String!
     var width: CGFloat!
     var height: CGFloat!
-    var ratio: CGFloat {
+    var heightRatio: CGFloat {
         return height / width
     }
     var image: URL!
