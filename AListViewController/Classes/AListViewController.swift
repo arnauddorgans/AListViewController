@@ -223,6 +223,7 @@ open class AListViewController: UIViewController {
             fetchSourceObjects({ [weak self] objects,noMoreData in
                 if let _self = self {
                     func update() {
+                        _self._tableView?.beginUpdates()
                             let currentCount = _self.sourceObjects.count
                             var ignoredSections = [Int]()
                             if objects.count > currentCount {
@@ -269,6 +270,7 @@ open class AListViewController: UIViewController {
                                 }
                                 _self.reloadRows(withIndexs: reloadRows)
                             }
+                        _self._tableView?.endUpdates()
                     }
                     
                     func end() {
