@@ -26,11 +26,13 @@
 import UIKit
 import ESPullToRefresh
 
+typealias ListView = UIScrollView
+
 open class AListViewController: UIViewController {
     
-    internal var scrollView: UIScrollView!
+    internal var scrollView: ListView!
     public var configureCellIdentifier: ((IndexPath,Any)->String)!
-    public var fetchSourceObjects: ((@escaping([[Any]],Bool,Bool) -> Void) -> Void)!
+    public var fetchSourceObjects: ((@escaping([[Any]],Bool) -> Void) -> Void)!
     
     public var pullToRefreshEnabled: Bool = false
     public var loadMoreEnabled: Bool = false
@@ -218,10 +220,9 @@ open class AListViewController: UIViewController {
                 reset()
             }
             isLoading = true
-            fetchSourceObjects({ [weak self] objects,success,noMoreData in
+            fetchSourceObjects({ [weak self] objects,noMoreData in
                 if let _self = self {
                     func update() {
-                        if success {
                             let currentCount = _self.sourceObjects.count
                             var ignoredSections = [Int]()
                             if objects.count > currentCount {
@@ -268,9 +269,6 @@ open class AListViewController: UIViewController {
                                 }
                                 _self.reloadRows(withIndexs: reloadRows)
                             }
-                        } else if reload {
-                            reset()
-                        }
                     }
                     
                     func end() {
@@ -279,7 +277,7 @@ open class AListViewController: UIViewController {
                         }
                         if _self.loadMoreEnabled {
                             _self.scrollView.es_stopLoadingMore()
-                            if noMoreData || !success {
+                            if noMoreData {
                                 _self.scrollView.es_noticeNoMoreData()
                             } else {
                                 DispatchQueue.main.asyncAfter(deadline: .now(), execute: {

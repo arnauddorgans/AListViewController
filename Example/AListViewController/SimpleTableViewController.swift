@@ -32,7 +32,7 @@ class SimpleTableViewController: ATableViewController {
             return cell
         }
         self.fetchSourceObjects = { completion in
-            completion([self.menu], true, false)
+            completion([self.menu], true)
         }
         self.didSelectCell = { indexPath,_,_ in
             let controller = self.storyboard!.instantiateViewController(withIdentifier: self.storyboardID[indexPath.row])

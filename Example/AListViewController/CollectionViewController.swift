@@ -56,7 +56,7 @@ class CollectionViewController: ACollectionViewController {
         self.fetchSourceObjects = { completion in
             DribbbleShot.get(atPage: self.currentPage, completion: { (success, shot, reachEnd) in
                 self.currentPage += 1
-                completion([shot], success, reachEnd)
+                completion([shot], !success || reachEnd)
             })
         }
         self.didSelectCell = { indexPath,_,_ in

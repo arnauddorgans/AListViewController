@@ -60,7 +60,7 @@ class TableViewController: ATableViewController {
             return cell
         }
         self.fetchSourceObjects = { completion in
-            completion([self.chat], true, false)
+            completion([self.chat], true)
         }
         self.didSelectCell = { indexPath,_,_ in
             self.deleteRow(withIndex: indexPath)
