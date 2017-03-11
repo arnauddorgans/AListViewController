@@ -17,14 +17,6 @@ class TableViewController: ATableViewController {
         case emoji = "emoji"
     }
     
-    let chat = [Message(text:"Wyd?",isOwn:true),
-                Message(text:"Chillin at home. You?",isOwn:false),
-                Message(text:"Nothing. Wanna hang out?",isOwn:true),
-                Message(text:"Sure where do you wanna meet?",isOwn:false),
-                Message(text:"Outside campus. Let's say 8?",isOwn:true),
-                Message(text:"Sounds great",isOwn:false),
-                Message(text:"See ya",isOwn:true)]
-    
     @IBAction func addHi() {
         self.say("Hi !")
     }
@@ -34,7 +26,7 @@ class TableViewController: ATableViewController {
     }
     
     @IBAction func addChat() {
-        self.insertSection(withObject: self.chat)
+        self.insertSection(withObject: Message.demoChat)
         self.tableView.scrollToBottom()
     }
     
@@ -48,6 +40,7 @@ class TableViewController: ATableViewController {
     }
     
     override func viewDidLoad() {
+        self.tableViewRowAnimation = (.right,.top,.automatic)
         self.pullToRefreshEnabled = true
         self.configureCellIdentifier = { _, object in
             let message = object as! Message
@@ -60,7 +53,7 @@ class TableViewController: ATableViewController {
             return cell
         }
         self.fetchSourceObjects = { completion in
-            completion([self.chat], true)
+            completion([Message.demoChat], true)
         }
         self.didSelectCell = { indexPath,_,_ in
             self.deleteRow(withIndex: indexPath)

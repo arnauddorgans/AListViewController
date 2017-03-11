@@ -15,27 +15,28 @@ class SimpleTableViewController: ATableViewController {
         case `default` = "cell"
     }
     
-    let menu = ["TableView Exemple","CollectionView Exemple"]
-    let storyboardID = ["TableViewController","CollectionViewController"]
+    let menu = [("TableView Exemple","TableViewController"),
+                ("CollectionView Exemple","CollectionViewController")]
     
     override func customizeTableView(_ tableView: UITableView) {
         self.registerCellClass(UITableViewCell.self, withIdentifier: CellIdentifier.default.rawValue)
     }
     
     override func viewDidLoad() {
+        self.rowAnimationEnabled = false
         self.configureCellIdentifier = { _, object in
             return CellIdentifier.default.rawValue
         }
         self.configureCell = { _,object,cell in
-            cell.textLabel?.text = object as? String
+            cell.textLabel?.text = (object as? (String,String))?.0
             cell.selectionStyle = .none
             return cell
         }
         self.fetchSourceObjects = { completion in
             completion([self.menu], true)
         }
-        self.didSelectCell = { indexPath,_,_ in
-            let controller = self.storyboard!.instantiateViewController(withIdentifier: self.storyboardID[indexPath.row])
+        self.didSelectCell = { _,object,_ in
+            let controller = self.storyboard!.instantiateViewController(withIdentifier: (object as! (String,String)).1)
             self.navigationController?.pushViewController(controller, animated: true)
         }
         super.viewDidLoad()

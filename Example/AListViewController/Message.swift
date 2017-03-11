@@ -19,4 +19,12 @@ class Message {
         self.isOwn = isOwn
         self.isEmoji = Emoji.isPureEmojiString(text)
     }
+    
+    static let demoChat = [Message(text:"Wyd?",isOwn:true),
+                           Message(text:"Chillin at home. You?",isOwn:false),
+                           Message(text:"Nothing. Wanna hang out?",isOwn:true),
+                           Message(text:"Sure where do you wanna meet?",isOwn:false),
+                           Message(text:"Outside campus. Let's say 8?",isOwn:true),
+                           Message(text:"Sounds great",isOwn:false),
+                           Message(text:"See ya",isOwn:true)]
 }
