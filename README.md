@@ -67,7 +67,7 @@ The only difference between thoses subclasses is the `ListView`:
 ```swift
 import AListViewController
 
-class SimpleTableViewController: ATableViewController {
+class ExampleTableViewController: ATableViewController {
 
     let section0 = ["Cell 1 Section 1","Cell 2 Section 1"]
     let section1 = ["Cell 1 Section 2","Cell 2 Section 2"]
@@ -95,7 +95,8 @@ class SimpleTableViewController: ATableViewController {
 }
 ```
 
-In this exemple if you call `refreshData(reload: true)` the content of your `ListView` don't change.
+In this exemple the `UITableView` is linked in your storyboard and you have a prototype cell with "cell" as identifier.
+If you call `refreshData(reload: true)` the content of your `ListView` don't change.
 
 But if you call `refreshData(reload: false)` :
 - `self.section0` is add to section at index 0
