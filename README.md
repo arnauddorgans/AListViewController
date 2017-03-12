@@ -11,7 +11,7 @@
 ## Features
 - Configure `TableView` or `CollectionView` with a **SINGLE** method
 - Manage sections and rows easily and animatedly
-- PullToRefresh and loadMore
+- PullToRefresh and infiniteScrolling
 
 ## Installation
 
@@ -22,6 +22,7 @@ To install it, simply add the following line to your Podfile:
 ```ruby
 pod "AListViewController"
 pod "AListViewController/PullToRefresh" #pullToRefresh feature
+pod 'AListViewController/InfiniteScrolling' #infiniteScrolling feature
 ```
 
 ## Requirements
@@ -126,7 +127,7 @@ Now,
 ```swift
 
 public var pullToRefreshEnabled: Bool
-public var loadMoreEnabled: Bool
+public var infiniteScrollingEnabled: Bool
 
 public var fetchSourceObjectsOnViewDidLoad: Bool
 public var rowAnimationEnabled: Bool
