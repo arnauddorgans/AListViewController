@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AListViewController'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'Elegant UITableViewController/UICollectionViewController in Swift.'
 
   s.homepage         = 'https://github.com/Arnoymous/AListViewController'
