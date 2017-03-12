@@ -9,7 +9,7 @@
 <img src="Dribble-demo.gif" width="250" height="447">
 
 ## Features
-- Configure `TableView` or `CollectionView` a **SINGLE** method
+- Configure `TableView` or `CollectionView` with a **SINGLE** method
 - Manage sections and rows easily and animatedly
 - PullToRefresh and loadMore
 
@@ -134,6 +134,7 @@ public var rowAnimationEnabled: Bool
 public var rowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) //ATableViewController
 
 open func addPullToRefresh(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) //AListViewController/PullToRefresh
+
 open func addLoadMore(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) //AListViewController/PullToRefresh
 
 public func registerCellClass(_ `class`:AnyClass,withIdentifier identifier: String)
