@@ -9,14 +9,9 @@
 Pod::Spec.new do |s|
   s.name             = 'AListViewController'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of AListViewController.'
-
-  s.description      = <<-DESC
-Elegant UITableViewController/UICollectionViewController in Swift
-                       DESC
+  s.summary          = 'Elegant UITableViewController/UICollectionViewController in Swift.'
 
   s.homepage         = 'https://github.com/Arnoymous/AListViewController'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Arnaud Dorgans' => 'arnaud.dorgans@gmail.com' }
   s.source           = { :git => 'https://github.com/Arnoymous/AListViewController.git', :tag => s.version }
