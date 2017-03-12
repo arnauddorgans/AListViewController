@@ -3,6 +3,7 @@ use_frameworks!
 target 'AListViewController_Example' do
   pod 'AListViewController', :path => '../'
   pod 'AListViewController/PullToRefresh', :path => '../'
+  pod 'AListViewController/InfiniteScrolling', :path => '../'
   pod 'SwiftEmoji', '~> 1.1'
   pod 'PureLayout'
   pod 'Alamofire'

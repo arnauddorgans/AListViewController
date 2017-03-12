@@ -61,11 +61,19 @@ open class ACollectionViewController: AListViewController, UICollectionViewDeleg
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
+        if !collectionView.alwaysBounceVertical {
+            
+        }
+        var alwaysBounceVertical = false
         #if ALISTVIEWCONTROLLER_PULL
-        if (pullToRefreshEnabled || loadMoreEnabled) && !collectionView.alwaysBounceVertical {
+            alwaysBounceVertical = pullToRefreshEnabled
+        #endif
+        #if ALISTVIEWCONTROLLER_INFINITESCROLLING
+            alwaysBounceVertical = infiniteScrollingEnabled
+        #endif
+        if alwaysBounceVertical {
             collectionView.alwaysBounceVertical = true
         }
-        #endif
     }
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {

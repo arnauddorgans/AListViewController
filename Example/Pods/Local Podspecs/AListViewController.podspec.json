@@ -2,7 +2,7 @@
   "name": "AListViewController",
   "version": "0.1.0",
   "summary": "A short description of AListViewController.",
-  "description": "TODO: Add long description of the pod here.",
+  "description": "Elegant UITableViewController/UICollectionViewController in Swift",
   "homepage": "https://github.com/Arnoymous/AListViewController",
   "license": {
     "type": "MIT",
@@ -17,7 +17,7 @@
   },
   "social_media_url": "https://twitter.com/arnauddorgans",
   "requires_arc": true,
-  "default_subspecs": "Lite",
+  "default_subspecs": "Base",
   "platforms": {
     "osx": null,
     "ios": null,
@@ -26,7 +26,7 @@
   },
   "subspecs": [
     {
-      "name": "Lite",
+      "name": "Base",
       "platforms": {
         "ios": "8.0",
         "tvos": "9.0"
@@ -45,6 +45,20 @@
       },
       "xcconfig": {
         "OTHER_SWIFT_FLAGS": "$(inherited) -DALISTVIEWCONTROLLER_PULL"
+      }
+    },
+    {
+      "name": "InfiniteScrolling",
+      "platforms": {
+        "ios": "8.0"
+      },
+      "dependencies": {
+        "ESPullToRefresh": [
+          "~> 2.6"
+        ]
+      },
+      "xcconfig": {
+        "OTHER_SWIFT_FLAGS": "$(inherited) -DALISTVIEWCONTROLLER_INFINITESCROLLING"
       }
     }
   ]

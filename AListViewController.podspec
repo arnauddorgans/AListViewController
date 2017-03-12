@@ -11,27 +11,21 @@ Pod::Spec.new do |s|
   s.version          = '0.1.0'
   s.summary          = 'A short description of AListViewController.'
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Elegant UITableViewController/UICollectionViewController in Swift
                        DESC
 
   s.homepage         = 'https://github.com/Arnoymous/AListViewController'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Arnaud Dorgans' => 'arnaud.dorgans@gmail.com' }
-  s.source           = { :git => 'https://github.com/Arnoymous/AListViewController.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/Arnoymous/AListViewController.git', :tag => s.version }
   s.social_media_url = 'https://twitter.com/arnauddorgans'
 
   s.requires_arc	= true
-  s.default_subspec = 'Lite'
+  s.default_subspec = 'Base'
 
-  s.subspec 'Lite' do |lite|
+  s.subspec 'Base' do |lite|
     lite.platforms = { :ios => "8.0", :tvos => "9.0" }
     lite.source_files = 'AListViewController/Classes/**/*'
   end
@@ -43,6 +37,12 @@ TODO: Add long description of the pod here.
     { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DALISTVIEWCONTROLLER_PULL' }
   end
 
+  s.subspec 'InfiniteScrolling' do |pull|
+    pull.platforms = { :ios => "8.0" }
+    pull.dependency	'ESPullToRefresh', '~> 2.6'
+    pull.xcconfig	=
+    { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DALISTVIEWCONTROLLER_INFINITESCROLLING' }
+  end
 
 end
 

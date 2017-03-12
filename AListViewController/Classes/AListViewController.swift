@@ -24,7 +24,7 @@
 //
 
 import UIKit
-#if ALISTVIEWCONTROLLER_PULL
+#if ALISTVIEWCONTROLLER_PULL || ALISTVIEWCONTROLLER_INFINITESCROLLING
     import ESPullToRefresh
 #endif
 
@@ -47,7 +47,13 @@ open class AListViewController: UIViewController {
     
     #if ALISTVIEWCONTROLLER_PULL
         public var pullToRefreshEnabled: Bool = false
-        public var loadMoreEnabled: Bool = false
+    #endif
+    
+    #if ALISTVIEWCONTROLLER_INFINITESCROLLING
+        public var infiniteScrollingEnabled: Bool = false
+    #endif
+    
+    #if ALISTVIEWCONTROLLER_PULL || ALISTVIEWCONTROLLER_INFINITESCROLLING
         private var initRefresh: Bool = false
     #endif
     
@@ -78,8 +84,9 @@ open class AListViewController: UIViewController {
             self?.refreshData()
         }
     }
-    
-    open func addLoadMore(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) {
+    #endif
+    #if ALISTVIEWCONTROLLER_INFINITESCROLLING
+    open func addInfiniteScrolling(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) {
         self.scrollView.es_addInfiniteScrolling(animator: animator) { [weak self] in
             if let _self = self, !_self.isLoading {
                 _self.isLoadingMore = true
@@ -112,16 +119,21 @@ open class AListViewController: UIViewController {
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        #if ALISTVIEWCONTROLLER_PULL
-        if !initRefresh {
-            initRefresh = true
-            if pullToRefreshEnabled {
-                self.addPullToRefresh(ESRefreshHeaderAnimator())
+        
+        #if ALISTVIEWCONTROLLER_PULL || ALISTVIEWCONTROLLER_INFINITESCROLLING
+            if !initRefresh {
+                initRefresh = true
+                #if ALISTVIEWCONTROLLER_PULL
+                    if pullToRefreshEnabled {
+                        self.addPullToRefresh(ESRefreshHeaderAnimator())
+                    }
+                #endif
+                #if ALISTVIEWCONTROLLER_INFINITESCROLLING
+                    if infiniteScrollingEnabled {
+                        self.addInfiniteScrolling(ESRefreshFooterAnimator())
+                    }
+                #endif
             }
-            if loadMoreEnabled {
-                self.addLoadMore(ESRefreshFooterAnimator())
-            }
-        }
         #endif
     }
     
@@ -245,8 +257,8 @@ open class AListViewController: UIViewController {
     
     open func refreshData(reload: Bool = true, immediately: Bool = false) {
         if !isLoading {
-            #if ALISTVIEWCONTROLLER_PULL
-            if self.loadMoreEnabled && reload {
+            #if ALISTVIEWCONTROLLER_INFINITESCROLLING
+            if self.infiniteScrollingEnabled && reload {
                 self.scrollView.es_resetNoMoreData()
             }
             #endif
@@ -315,7 +327,9 @@ open class AListViewController: UIViewController {
                         if _self.pullToRefreshEnabled {
                             _self.scrollView.es_stopPullToRefresh()
                         }
-                        if _self.loadMoreEnabled {
+                        #endif
+                        #if ALISTVIEWCONTROLLER_INFINITESCROLLING
+                        if _self.infiniteScrollingEnabled {
                             _self.scrollView.es_stopLoadingMore()
                             if noMoreData {
                                 _self.scrollView.es_noticeNoMoreData()

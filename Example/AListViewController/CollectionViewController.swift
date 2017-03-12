@@ -43,7 +43,7 @@ class CollectionViewController: ACollectionViewController {
         self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         self.pullToRefreshEnabled = true
-        self.loadMoreEnabled = true
+        self.infiniteScrollingEnabled = true
         
         self.configure(cellIdentifier: { _ -> String in
             
