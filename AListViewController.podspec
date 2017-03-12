@@ -14,26 +14,27 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/Arnoymous/AListViewController'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Arnaud Dorgans' => 'arnaud.dorgans@gmail.com' }
-  s.source           = { :git => 'https://github.com/Arnoymous/AListViewController.git', :tag => s.version }
+  s.source           = { :git => 'https://github.com/Arnoymous/AListViewController.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/arnauddorgans'
 
   s.requires_arc	= true
   s.default_subspec = 'Base'
 
   s.subspec 'Base' do |lite|
-    lite.platforms = { :ios => "8.0", :tvos => "9.0" }
+    lite.platform     = :ios, "8.0"
+    lite.platform     = :tvos, "9.0"
     lite.source_files = 'AListViewController/Classes/**/*'
   end
 
   s.subspec 'PullToRefresh' do |pull|
-    pull.platforms = { :ios => "8.0" }
+    pull.platform     = :ios, "8.0"
     pull.dependency	'ESPullToRefresh', '~> 2.6'
     pull.xcconfig	=
     { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DALISTVIEWCONTROLLER_PULL' }
   end
 
   s.subspec 'InfiniteScrolling' do |pull|
-    pull.platforms = { :ios => "8.0" }
+    pull.platform     = :ios, "8.0"
     pull.dependency	'ESPullToRefresh', '~> 2.6'
     pull.xcconfig	=
     { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DALISTVIEWCONTROLLER_INFINITESCROLLING' }
