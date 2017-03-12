@@ -162,7 +162,9 @@ public func object(atIndexPath indexPath: IndexPath) -> Any
 ```
 ## Author
 
-Arnaud Dorgans,[@arnauddorgans](http://twitter.com/arnauddorgans) on Twitter
+Arnaud Dorgans
+
+Twitter [@arnauddorgans](http://twitter.com/arnauddorgans)
 
 Email <arnaud.dorgans@gmail.com>
 
