@@ -126,17 +126,16 @@ Now,
 ## Additional Usage
 ```swift
 
-public var pullToRefreshEnabled: Bool
-public var infiniteScrollingEnabled: Bool
-
 public var fetchSourceObjectsOnViewDidLoad: Bool
 public var rowAnimationEnabled: Bool
 
-public var rowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) //ATableViewController
+public var pullToRefreshEnabled: Bool //AListViewController/PullToRefresh
+public var infiniteScrollingEnabled: Bool //AListViewController/InfiniteScrolling
 
 open func addPullToRefresh(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) //AListViewController/PullToRefresh
+open func addInfiniteScrolling(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) //AListViewController/InfiniteScrolling
 
-open func addLoadMore(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) //AListViewController/PullToRefresh
+public var rowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) //ATableViewController
 
 public func registerCellClass(_ `class`:AnyClass,withIdentifier identifier: String)
 public func registerCellNib(_ nib: UINib,withIdentifier identifier: String)
