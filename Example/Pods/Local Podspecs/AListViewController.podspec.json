@@ -1,8 +1,7 @@
 {
   "name": "AListViewController",
   "version": "0.1.0",
-  "summary": "A short description of AListViewController.",
-  "description": "Elegant UITableViewController/UICollectionViewController in Swift",
+  "summary": "Elegant UITableViewController/UICollectionViewController in Swift.",
   "homepage": "https://github.com/Arnoymous/AListViewController",
   "license": {
     "type": "MIT",

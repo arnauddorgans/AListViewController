@@ -20,25 +20,25 @@ Pod::Spec.new do |s|
   s.requires_arc	= true
   s.default_subspec = 'Base'
 
+  s.ios.deployment_target  = '8.0'
+  s.tvos.deployment_target  = '9.0'
+
   s.subspec 'Base' do |lite|
-    lite.platform     = :ios, "8.0"
-    lite.platform     = :tvos, "9.0"
     lite.source_files = 'AListViewController/Classes/**/*'
   end
 
   s.subspec 'PullToRefresh' do |pull|
-    pull.platform     = :ios, "8.0"
+    pull.ios.deployment_target  = '8.0'
     pull.dependency	'ESPullToRefresh', '~> 2.6'
     pull.xcconfig	=
     { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DALISTVIEWCONTROLLER_PULL' }
   end
 
   s.subspec 'InfiniteScrolling' do |pull|
-    pull.platform     = :ios, "8.0"
+    pull.ios.deployment_target  = '8.0'
     pull.dependency	'ESPullToRefresh', '~> 2.6'
     pull.xcconfig	=
     { 'OTHER_SWIFT_FLAGS' => '$(inherited) -DALISTVIEWCONTROLLER_INFINITESCROLLING' }
   end
 
 end
-
