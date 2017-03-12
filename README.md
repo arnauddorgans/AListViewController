@@ -10,7 +10,7 @@
 
 ## Features
 - configure `TableView` or `CollectionView` a SINGLE method
-- manage sections and rows easly and animatly
+- manage sections and rows easily and animated
 - pullToRefresh and loadMore
 
 ## Installation
@@ -30,11 +30,11 @@ Swift 3.0
 
 ## How it work ?
 
-AListViewController have two subclasses :
+AListViewController has two subclasses :
 - `ATableViewController`
 - `ACollectionViewController`
 
-The only difference between thoses subclasses is the `ListView`: 
+The only difference between those subclasses is the `ListView`: 
 - UITableView for `ATableViewController`
 - UICollectionView for `ACollectionViewController`
 
@@ -57,7 +57,7 @@ Call `self.configure()` before `super.viewDidLoad()` with arguments:
 
 `sourceObjects: @escaping ((@escaping ([[Any]], Bool) -> Void) -> Void)`
 - Fetch data in this closure.
-- Call completion closure to return these information.
+- Call completion closure to return these informations.
     - The fetched new objects (sourceObjects).
     - If the next loading exists (hasNext).
     
@@ -110,8 +110,8 @@ class ExampleTableViewController: ATableViewController {
 }
 ```
 
-In this exemple the `UITableView` is linked in your storyboard and you have a prototype cell with "cell" as identifier.
-If you call `refreshData(reload: true)` the content of your `ListView` don't change.
+In this exemple the `UITableView` is linked to your storyboard and you have a prototype cell with "cell" as identifier.
+If you call `refreshData(reload: true)` the content of your `ListView` won't change.
 
 But if you call `refreshData(reload: false)` :
 - `self.section0` is add to section at index 0
