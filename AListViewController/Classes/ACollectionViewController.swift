@@ -64,16 +64,18 @@ open class ACollectionViewController: AListViewController, UICollectionViewDeleg
         if !collectionView.alwaysBounceVertical {
             
         }
-        var alwaysBounceVertical = false
-        #if ALISTVIEWCONTROLLER_PULL
-            alwaysBounceVertical = pullToRefreshEnabled
+        #if ALISTVIEWCONTROLLER_PULL || ALISTVIEWCONTROLLER_INFINITESCROLLING
+            var alwaysBounceVertical = false
+            #if ALISTVIEWCONTROLLER_PULL
+                alwaysBounceVertical = pullToRefreshEnabled
+            #endif
+            #if ALISTVIEWCONTROLLER_INFINITESCROLLING
+                alwaysBounceVertical = infiniteScrollingEnabled
+            #endif
+            if alwaysBounceVertical {
+                collectionView.alwaysBounceVertical = true
+            }
         #endif
-        #if ALISTVIEWCONTROLLER_INFINITESCROLLING
-            alwaysBounceVertical = infiniteScrollingEnabled
-        #endif
-        if alwaysBounceVertical {
-            collectionView.alwaysBounceVertical = true
-        }
     }
     
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
