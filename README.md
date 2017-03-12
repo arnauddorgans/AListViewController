@@ -162,9 +162,13 @@ public func object(atIndexPath indexPath: IndexPath) -> Any
 ```
 ## Author
 
-Arnaud Dorgans, arnaud.dorgans@gmail.com
+Arnaud Dorgans,[@arnauddorgans](http://twitter.com/arnauddorgans) on Twitter
 
-Inspired by mishimay, https://github.com/istyle-inc/LoadMoreTableViewController
+Email <arnaud.dorgans@gmail.com>
+
+## Acknowledgment
+
+Inspired by [mishimay](https://github.com/istyle-inc/LoadMoreTableViewController)
 
 ## License
 
