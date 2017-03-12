@@ -9,9 +9,9 @@
 <img src="Dribble-demo.gif" width="250" height="447">
 
 ## Features
-- configure `TableView` or `CollectionView` a SINGLE method
-- manage sections and rows easily and animated
-- pullToRefresh and loadMore
+- Configure `TableView` or `CollectionView` a **SINGLE** method
+- Manage sections and rows easily and animatedly
+- PullToRefresh and loadMore
 
 ## Installation
 
@@ -104,6 +104,7 @@ class ExampleTableViewController: ATableViewController {
         super.viewDidLoad()
     }
 
+    //You still can override UITableViewDelegate or UICollectionViewDelegate methods for additional customizations
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Section \(section)"
     }
@@ -111,7 +112,7 @@ class ExampleTableViewController: ATableViewController {
 ```
 
 In this exemple the `UITableView` is linked to your storyboard and you have a prototype cell with "cell" as identifier.
-If you call `refreshData(reload: true)` the content of your `ListView` won't change.
+If you call `refreshData(reload: true)` the content of your `ListView` doesn't change.
 
 But if you call `refreshData(reload: false)` :
 - `self.section0` is add to section at index 0
@@ -130,7 +131,7 @@ public var loadMoreEnabled: Bool
 public var fetchSourceObjectsOnViewDidLoad: Bool
 public var rowAnimationEnabled: Bool
 
-public var tableViewRowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) //ATableViewController
+public var rowAnimation: (delete: UITableViewRowAnimation, insert: UITableViewRowAnimation, reload: UITableViewRowAnimation) //ATableViewController
 
 open func addPullToRefresh(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) //AListViewController/PullToRefresh
 open func addLoadMore(_ animator: ESRefreshProtocol & ESRefreshAnimatorProtocol) //AListViewController/PullToRefresh
