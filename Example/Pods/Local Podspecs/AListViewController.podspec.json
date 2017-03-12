@@ -18,18 +18,12 @@
   "requires_arc": true,
   "default_subspecs": "Base",
   "platforms": {
-    "osx": null,
-    "ios": null,
-    "tvos": null,
-    "watchos": null
+    "ios": "8.0",
+    "tvos": "9.0"
   },
   "subspecs": [
     {
       "name": "Base",
-      "platforms": {
-        "ios": "8.0",
-        "tvos": "9.0"
-      },
       "source_files": "AListViewController/Classes/**/*"
     },
     {
